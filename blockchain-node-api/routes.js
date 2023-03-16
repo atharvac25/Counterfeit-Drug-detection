@@ -6,11 +6,17 @@ function routes(app, db, accounts, contactList) {
     });
 
     app.get('/addDrug', async (request, response) => {
-        await contactList.methods.addDrug('Dolo', '{color: white, type: tablet}').send({from: accounts[0], gas: 300000});
-        response.json('drug added')
+        console.log(request.query.drug_name, request.query.drug_info);
+        if(request.query.drug_name!=undefined) {
+            await contactList.methods.addDrug(request.query.drug_name, request.query.drug_info).send({from: accounts[0], gas: 300000});
+            response.json('drug added')
+        }
+        else {
+            response.json('Drug is not added as drug name is not defined');
+        }
     });
     app.get('/drugsData', async (request, response) => {
-        const drugData = await contactList.methods.drugs('0x5b7dc7FBd3ffD671764DC95dca9e652B65a7e94b').call();
+        const drugData = await contactList.methods.drugs(request.query.drug_id).call();
         response.json(drugData);
     })
 }

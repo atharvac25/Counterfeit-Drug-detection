@@ -38,7 +38,7 @@ mongodb.connect('mongodb+srv://cluster45580.ajcl2rw.mongodb.net',
 
         routes(app, db, accounts, contactList);
         app.listen(process.env.PORT || 3001, () => {
-                console.log('listening on port '+ (process.env.PORT || 3001));
+                console.log('listening on port '+ (process.env.PORT || 'http://localhost:3001/'));
         });
 });
 

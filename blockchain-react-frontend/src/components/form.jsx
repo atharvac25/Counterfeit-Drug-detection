@@ -1,0 +1,52 @@
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+function Form1({ addDrug }) {
+    const [drugName, setDrugName] = useState('');
+    const [drugInfo, setDrugInfo] = useState('');
+    const [status, setStatus] = useState('Add Your Drug');
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        var result = await addDrug(drugName, drugInfo);
+        setDrugName('');
+        setDrugInfo('');
+        setStatus(result);
+        console.log('My Result: ', result);
+    }
+
+    return (
+        <div>
+            <Form onSubmit={handleFormSubmit}>
+                <Form.Group className="mb-3">
+                    <Form.Label>Drug Name</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Drug Name" value={drugName} onChange={(e) => {
+                        setDrugName(e.target.value);
+                    }
+                    } />
+                    <Form.Text className="text-muted">
+                        Please keep it meaningful
+                    </Form.Text>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>Drug Description</Form.Label>
+                    <Form.Control type="text" placeholder="Description" value={drugInfo} onChange={(e) => {
+                        setDrugInfo(e.target.value);
+                    }} />
+                </Form.Group>
+                {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Add Drug to the blockchain" />
+      </Form.Group> */}
+                <Button variant="primary" type="submit">
+                    Add Drug
+                </Button>
+            </Form>
+            <h5>{status}</h5>
+        </div>
+    );
+}
+
+export default Form1;
