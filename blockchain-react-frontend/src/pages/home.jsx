@@ -22,7 +22,7 @@ export default function Home() {
 
   const getDrugsList = async () => {
       console.log("Entered handleSubmit Function");
-      await axios.get('http://localhost:3001/drugsList')
+      await axios.get('http://localhost:3001/getDrugNamesList')
       .then((response) => response.data)
       .then(val => setDrugsList(val))
       .catch((error) => {

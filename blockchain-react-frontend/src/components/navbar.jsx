@@ -16,9 +16,10 @@ function Navbar1() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Link to="/addDrug">Add Drug</Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
-                            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                            <Link to="/addDrug" className="mx-3">Add Drug</Link>
+                            <Link to="/addDistributer" className="mx-3">Add Distributer</Link>
+                            <Link to="/assignDrugToDistributer" className="mx-3">Assign Drug to Distributer</Link>
+                            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
                                     Another action
@@ -28,7 +29,7 @@ function Navbar1() {
                                 <NavDropdown.Item href="#action/3.4">
                                     Separated link
                                 </NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

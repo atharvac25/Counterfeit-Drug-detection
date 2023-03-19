@@ -6,16 +6,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Form1({ addDrug }) {
     const [drugName, setDrugName] = useState('');
     const [drugInfo, setDrugInfo] = useState('');
+    const [quantity, setQuantity] = useState(1);
     const [status, setStatus] = useState('Add Your Drug');
+
+
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        var result = await addDrug(drugName, drugInfo);
+        var result = await addDrug(drugName, drugInfo, quantity);
         setDrugName('');
         setDrugInfo('');
+        setQuantity(1);
         setStatus(result);
         console.log('My Result: ', result);
     }
+
+
 
     return (
         <div>
@@ -37,6 +44,13 @@ function Form1({ addDrug }) {
                         setDrugInfo(e.target.value);
                     }} />
                 </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Quantity</Form.Label>
+                    <Form.Control type="number" min="1" placeholder="Value" value={quantity} onChange={(e) => {
+                        setQuantity(e.target.value);
+                    }} />
+                </Form.Group>
+
                 {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Add Drug to the blockchain" />
       </Form.Group> */}
