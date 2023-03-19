@@ -1,10 +1,11 @@
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet, Link } from "react-router-dom";
+import '../App.css'
 
 function Table1({drugsList}) {
   return (
-    <Table striped bordered hover size="sm">
+    <Table striped bordered hover size="sm" className='custom-table'>
       <thead>
         <tr>
           <th>#</th>

@@ -1,17 +1,22 @@
-const CONTRACT_ADDRESS = '0xbaBABb91fdb2f704d10A3a301413aEd136779a8c';
+const CONTRACT_ADDRESS = '0x2f810af8D248f307e21F514f45641C29027F085b';
 
 const CONTRACT_ABI = [
 	{
-		"inputs": [],
-		"name": "ManufacturerDrugsList",
-		"outputs": [
+		"inputs": [
 			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_distributer",
+				"type": "address"
 			}
 		],
-		"stateMutability": "view",
+		"name": "addDistributer",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -25,6 +30,11 @@ const CONTRACT_ABI = [
 				"internalType": "string",
 				"name": "info_json",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "quantity",
+				"type": "uint256"
 			}
 		],
 		"name": "addDrug",
@@ -35,9 +45,80 @@ const CONTRACT_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "address[]",
-				"name": "drug_ids",
-				"type": "address[]"
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_verifier",
+				"type": "address"
+			}
+		],
+		"name": "addVerifier",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "drug_name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct DrugVerify.assignDrug[]",
+				"name": "assigned_drugs",
+				"type": "tuple[]"
+			},
+			{
+				"internalType": "address",
+				"name": "_distributer",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_verifier",
+				"type": "address"
+			}
+		],
+		"name": "assignDrugToVerifier",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "drug_name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "quantity",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct DrugVerify.assignDrug[]",
+				"name": "assigned_drugs",
+				"type": "tuple[]"
 			},
 			{
 				"internalType": "address",
@@ -46,26 +127,57 @@ const CONTRACT_ABI = [
 			}
 		],
 		"name": "drugDispatchToDistributer",
-		"outputs": [],
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
-				"internalType": "address[]",
-				"name": "drug_ids",
-				"type": "address[]"
-			},
-			{
-				"internalType": "address",
-				"name": "_verifier",
-				"type": "address"
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
-		"name": "drugDispatchToVerifier",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "description_by_name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "distributer_drug_names",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -123,6 +235,19 @@ const CONTRACT_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getAllDrugsAdded",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -130,12 +255,112 @@ const CONTRACT_ABI = [
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
 			}
 		],
-		"name": "getDistributerDrugsAddressesList",
+		"name": "getDistributerDrugListByName",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_distributer",
+				"type": "address"
+			}
+		],
+		"name": "getDistributerDrugNames",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getDistributerList",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "distributer_address",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "verified",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct DrugVerify.distributer[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "getDrugDescriptionByName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getDrugNamesList",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "getDrugsListByName",
 		"outputs": [
 			{
 				"internalType": "address[]",
@@ -154,17 +379,66 @@ const CONTRACT_ABI = [
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
 			}
 		],
-		"name": "getVerifierDrugAddressesList",
+		"name": "getVerifierDrugListByName",
 		"outputs": [
 			{
 				"internalType": "address[]",
 				"name": "",
 				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_verifier",
+				"type": "address"
+			}
+		],
+		"name": "getVerifierDrugNames",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getVerifierList",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "verifier_address",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "verified",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct DrugVerify.verifier[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -207,6 +481,30 @@ const CONTRACT_ABI = [
 		],
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "verifier_drug_names",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
@@ -214,3 +512,5 @@ module.exports = {
     CONTRACT_ADDRESS,
     CONTRACT_ABI
 }
+
+
