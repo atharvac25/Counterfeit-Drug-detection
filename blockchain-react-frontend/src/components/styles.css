@@ -1,0 +1,181 @@
+body{
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+}
+
+.Navlogo{
+    color: red;
+}
+
+.Nav{
+  background-color: #252525;
+}
+
+.navlink{
+  padding: 5px;
+  color: white;
+  text-decoration: none;
+}
+
+.navlink a:hover{
+  color: red !important;
+}
+
+
+
+.nav-dropdwn{
+  text-decoration: none;
+  color: white;
+}
+
+.hg-heading{
+    margin-bottom:30px;
+    margin-top: 30px;
+    color: white;
+}
+
+.hg-subheading{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* table */
+
+.my-table {
+    border-collapse: collapse;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+  
+  .my-table th,
+  .my-table td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .my-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .my-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  .my-table tbody tr:hover {
+    background-color: #ddd;
+  }
+
+  /* drug-div */
+
+.drug_div{
+      max-width: 800px;
+      margin-top: 50px;
+      background-color: blue;
+
+}
+  
+/* form */
+
+.card-bd{
+  margin: 0;
+}
+
+.heading-div{
+  
+  color: #252525;
+  margin: 0;
+}
+
+/* .input-boxes{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  box-decoration-break: none;
+  transition: none;
+  -webkit-rtl-ordering: none;
+  outline: none;
+  
+} */
+
+.form-control{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000000;
+  box-decoration-break: none;
+  transition: none;
+  -webkit-rtl-ordering: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.drpdwn{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.submit-btn{
+  background-color: rgb(218, 109, 109);
+  
+}
+
+.submit-btn .active{
+    background-color: green !important;
+}
+
+/* .drug-status{
+  background-color: black;
+  color: white;
+} */
+  
+/* Hero */
+
+.hero-section{
+  background-image: url(/blockchain-react-frontend/src/assets/hero-bg.png);
+  height: 650px;
+}
+
+
+/* table */
+
+.table-container{
+  height: auto;
+  background-color: aliceblue;
+}
+
+
+.drug-tb {
+  border-collapse: collapse;
+  width: 1000px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.drug-tb th,
+.drug-tb td {
+  padding: 8px;
+  text-align: left;
+}
+
+.drug-tb th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.drug-tb tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.drug-tb tbody tr:hover {
+  background-color: #ddd;
+}
+
+
+.accord-tab{
+  min-height: 500px;
+}
+
+.badge-des{
+  margin-left: 100px;
+}

@@ -1,0 +1,20 @@
+{
+    "drugs": [
+      {
+        "name": "Paracetamol",
+        "description": "Common side effects include headache, nausea, and dizziness."
+      },
+      {
+        "name": "Ibuprofen",
+        "description": "Common side effects include stomach pain, heartburn, and nausea."
+      },
+      {
+        "name": "Aspirin",
+        "description": "Common side effects include stomach pain, heartburn, and nausea."
+      },
+      {
+        "name": "Naproxen",
+        "description": "Common side effects include stomach pain, heartburn, and nausea."
+      }
+    ]
+}
