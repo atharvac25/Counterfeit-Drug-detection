@@ -6,6 +6,7 @@ import axios from 'axios';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar1 from "../components/navbar";
 
 
 export default function AddDrugPage() {
@@ -31,6 +32,7 @@ export default function AddDrugPage() {
     }
     return(
         <div>
+            <Navbar1 />
             <Form1 addDrug={addDrug}/>
         </div>
     )

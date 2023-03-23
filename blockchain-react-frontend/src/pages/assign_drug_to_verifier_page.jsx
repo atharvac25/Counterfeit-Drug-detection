@@ -8,21 +8,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'bootstrap';
 import Navbar1 from '../components/navbar';
 
-export default function AssignDrugToDistributerPage() {
+export default function AssignDrugToVerifierPage() {
     const [drugsList, setDrugsList] = useState([]);
     const [quantityList, setQuantityList] = useState({});
     const [isChecked, setIsChecked] = useState({});
     // const [givenQuantity, setGivenQuantity] = useState({});
     const [assignedDrugsDict, setAssignedDrugsDict] = useState({});
     const [assignedDrugs, setAssignedDrugs] = useState([]);
-    const [distributorAddress, setDistributorAddress] = useState({});
-    const [address, setAddress] = useState('');
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [verifierAddressList, setVerifierAddressList] = useState({});
+    const [distributorAddressList, setDistributorAddressList] = useState({});
+    const [verifierAddress, setVerifierAddress] = useState('');
+    const [distributorAddress, setDistributorAddress] = useState('');
+    const [verifierSelectedOption, setVerifierSelectedOption] = useState(null);
+    const [distributorSelectedOption, setDistributorSelectedOption] = useState(null);
+
     const [status, setStatus] = useState('');
 
     useEffect(() => {
-        getDistributerList();
-        getDrugsList();
+        getVerifierList();
+        getDistributorList();
     }, []);
 
     useEffect(() => {
@@ -39,9 +43,34 @@ export default function AssignDrugToDistributerPage() {
         console.log('Assigned Drugs: ', assignedDrugs);
     }, [assignedDrugs]);
 
-    const getDistributerList = async () => {
+    const getVerifierList = async () => {
         var tempList = [];
-        console.log("Entered getDistributerList Function");
+        console.log("Entered getVerifierList Function");
+        await axios.get('http://localhost:3001/getVerifierList')
+            .then((response) => response.data)
+            .then(val => {
+                tempList = val;
+            })
+            .catch((error) => {
+                if (error.response) {
+                    console.log(error);
+                }
+            });
+        console.log(tempList);
+        tempList.map((item) => {
+            setVerifierAddressList(prevState => {
+                return {
+                    ...prevState,
+                    [item[0]]: item[1]
+                }
+            })
+        })
+        console.log('line 54');
+        console.log(verifierAddressList);
+    }
+    const getDistributorList = async () => {
+        var tempList = [];
+        console.log("Entered getDistributorList Function");
         await axios.get('http://localhost:3001/getDistributerList')
             .then((response) => response.data)
             .then(val => {
@@ -54,7 +83,7 @@ export default function AssignDrugToDistributerPage() {
             });
         console.log(tempList);
         tempList.map((item) => {
-            setDistributorAddress(prevState => {
+            setDistributorAddressList(prevState => {
                 return {
                     ...prevState,
                     [item[0]]: item[1]
@@ -62,12 +91,12 @@ export default function AssignDrugToDistributerPage() {
             })
         })
         console.log('line 54');
-        console.log(distributorAddress);
+        console.log(distributorAddressList);
     }
-    const getDrugsList = async () => {
+    const getDrugsList = async (address) => {
         console.log("Entered handleSubmit Function");
         var temp_drugs_list = [];
-        await axios.get('http://localhost:3001/getDrugNamesList')
+        await axios.get(`http://localhost:3001/getDistributerDrugNames?address=${address}`)
             .then((response) => response.data)
             .then(val => {
                 temp_drugs_list = val;
@@ -80,7 +109,7 @@ export default function AssignDrugToDistributerPage() {
             });
         // var temp_quantityList = quantityList;
         const promises = temp_drugs_list.map((drug) => (
-            axios.get(`http://localhost:3001/getDrugsListByName?drug_name=${drug}`)
+            axios.get(`http://localhost:3001/getDistributerDrugListByName?address=${address}&drug_name=${drug}`)
                 .then((response) => response.data)
                 .catch((error) => {
                     if (error.response) {
@@ -138,18 +167,26 @@ export default function AssignDrugToDistributerPage() {
         });
     }
 
-    const handleOptionSelect = (name) => {
+    const handleVerifierOptionSelect = (name) => {
         console.log()
-        setSelectedOption(name);
-        setAddress(distributorAddress[name]);
-        console.log(address);
+        setVerifierSelectedOption(name);
+        setVerifierAddress(verifierAddressList[name]);
+        console.log('Verifier Address', verifierAddress);
+    }
+    const handleDistributorOptionSelect = (name) => {
+        console.log()
+        setDistributorSelectedOption(name);
+        setDistributorAddress(distributorAddressList[name]);
+        getDrugsList(distributorAddressList[name]);
+        console.log('Verifier Address',  distributorAddress);
+
     }
     const handleAssign = async () => {
-        if (assignedDrugs == [] || address == '') {
+        if (assignedDrugs == [] || verifierAddress == '' || distributorAddress == '') {
             setStatus('Either parameter is empty')
             return;
         }
-        await axios.post(`http://localhost:3001/drugDispatchToDistributer?assigned_drugs=${encodeURIComponent(JSON.stringify(assignedDrugs))}&address=${address}`)
+        await axios.post(`http://localhost:3001/assignDrugToVerifier?assigned_drugs=${encodeURIComponent(JSON.stringify(assignedDrugs))}&verifier_address=${verifierAddress}&distributor_address=${distributorAddress}`)
             .then((response) => setStatus(response.data))
             .catch((error) => {
                 if (error.response) {
@@ -162,15 +199,32 @@ export default function AssignDrugToDistributerPage() {
         <div>
             <Navbar1 />
             <div>
-            <p style={{display: 'flex', alignItems: 'center'}}>Select one Distributor:</p>
-                {Object.keys(distributorAddress).map((option, index) => (
-                    <div key={index} style={{display: 'flex', alignItems: 'center'}} >
+                <p style={{ display: 'flex', alignItems: 'center' }}>Select one Verifier:</p>
+                {Object.keys(verifierAddressList).map((option, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }} >
                         <label >
                             <input
                                 type="radio"
                                 value={index + 1}
-                                checked={selectedOption === option}
-                                onChange={() => handleOptionSelect(option)}
+                                checked={verifierSelectedOption === option}
+                                onChange={() => handleVerifierOptionSelect(option)}
+                                className="mx-3"
+                            />
+                            {option}
+                        </label>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <p style={{ display: 'flex', alignItems: 'center' }}>Select one Distributor:</p>
+                {Object.keys(distributorAddressList).map((option, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }} >
+                        <label >
+                            <input
+                                type="radio"
+                                value={index + 1}
+                                checked={distributorSelectedOption === option}
+                                onChange={() => handleDistributorOptionSelect(option)}
                                 className="mx-3"
                             />
                             {option}
@@ -204,7 +258,9 @@ export default function AssignDrugToDistributerPage() {
                 </tbody>
             </Table>
             <button onClick={handleDrugSubmit}>Submit</button>
-            <h4>{address}</h4>
+            <h4>{`Verifier Address: ${verifierAddress}`}</h4>
+            <h4>{`Distributor Address: ${distributorAddress}`}</h4>
+
             {Array.isArray(assignedDrugs) && assignedDrugs.map((val, index) => (
                 <div key={index}>
                     <span>{`${val[0]}: ${val[1]}`}</span>

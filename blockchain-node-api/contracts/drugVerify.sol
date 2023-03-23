@@ -55,7 +55,7 @@ contract DrugVerify {
     // Manufacturer --> New Drug addition into blockchain
     function addDrug(string memory name, string memory info_json, uint quantity) public {
         for(uint i=0; i<quantity; i++) {
-            address uniqueId = address(bytes20(sha256(abi.encodePacked(msg.sender,block.timestamp))));
+            address uniqueId = address(bytes20(sha256(abi.encodePacked(msg.sender,block.timestamp, i))));
         
             drugs[uniqueId].drug_id = true;
             drugs[uniqueId].drug_name = name;

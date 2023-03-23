@@ -12,13 +12,17 @@ function Navbar1() {
         <div>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Link to='/'>Home Page</Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Link to="/addDrug" className="mx-3">Add Drug</Link>
                             <Link to="/addDistributer" className="mx-3">Add Distributer</Link>
                             <Link to="/assignDrugToDistributer" className="mx-3">Assign Drug to Distributer</Link>
+                            <Link to="/disAssignedList" className="mx-3">Distributer Assigned List</Link>
+                            <Link to="/addVerifier" className="mx-3">Add Verifier</Link>
+                            <Link to="/assignDrugToVerifier" className="mx-3">Assign Drug to Verifier</Link>
+                            <Link to="/verAssignedList" className="mx-3">Verifier Assigned List</Link>
                             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">
