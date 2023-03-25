@@ -32,6 +32,9 @@ export default function AssignDrugToVerifierPage() {
     useEffect(() => {
         console.log('quantityList:', quantityList);
     }, [quantityList]);
+    useEffect(() => {
+        console.log('drugsList:', drugsList);
+    }, [drugsList]);
     // useEffect(() => {
     //     console.log('quantityList:', quantityList);
     // }, [isChecked]);
@@ -258,8 +261,8 @@ export default function AssignDrugToVerifierPage() {
                 </tbody>
             </Table>
             <button onClick={handleDrugSubmit}>Submit</button>
-            <h4>{`Verifier Address: ${verifierAddress}`}</h4>
-            <h4>{`Distributor Address: ${distributorAddress}`}</h4>
+            <h6>{`Verifier Address: ${verifierAddress}`}</h6>
+            <h6>{`Distributor Address: ${distributorAddress}`}</h6>
 
             {Array.isArray(assignedDrugs) && assignedDrugs.map((val, index) => (
                 <div key={index}>

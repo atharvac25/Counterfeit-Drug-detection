@@ -29,6 +29,11 @@ function routes(app, db, accounts, contactList) {
         const res = await contactList.methods.getDrugNamesList().call({from: accounts[0]});
         response.json(res);
     });
+    app.get('/descriptionByName', async (request, response) => {
+        const res = await contactList.methods.description_by_name(request.query.drug_name).call();
+        // console.log("getDrugsListByName: ", res);
+        response.json(res);
+    });
     app.post('/addDistributer', async (request, response) => {
         if(typeof request.query.address !== 'string')
         {
@@ -151,6 +156,10 @@ function routes(app, db, accounts, contactList) {
         else
         {
             var assignedDrugs = JSON.parse(request.query.assigned_drugs);
+            if(assignedDrugs.length==0){
+                response.json('Assigned Drugs is empty');
+                return;
+            }
             var result = [];
             var drug = {}
             console.log(assignedDrugs);

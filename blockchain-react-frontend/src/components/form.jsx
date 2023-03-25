@@ -1,22 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Form1({ addDrug }) {
-    const [drugName, setDrugName] = useState('');
-    const [drugInfo, setDrugInfo] = useState('');
+function Form1({ addDrug, drugName, description, setDrugName, setDescription }) {
+    // const [drugName, setDrugName] = useState('');
+    // const [drugInfo, setDrugInfo] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [status, setStatus] = useState('Add Your Drug');
+
+    // useEffect(() => {
+    //     setDrugName(name);
+    //     setDrugInfo(description);
+    // })
+
+    
 
 
 
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        var result = await addDrug(drugName, drugInfo, quantity);
+        var result = await addDrug(drugName, description, quantity);
         setDrugName('');
-        setDrugInfo('');
+        setDescription('');
         setQuantity(1);
         setStatus(result);
         console.log('My Result: ', result);
@@ -40,8 +47,8 @@ function Form1({ addDrug }) {
 
                 <Form.Group className="mb-3">
                     <Form.Label>Drug Description</Form.Label>
-                    <Form.Control type="text" placeholder="Description" value={drugInfo} onChange={(e) => {
-                        setDrugInfo(e.target.value);
+                    <Form.Control type="text" placeholder="Description" value={description} onChange={(e) => {
+                        setDescription(e.target.value);
                     }} />
                 </Form.Group>
                 <Form.Group className="mb-3">

@@ -1,6 +1,7 @@
 import Table from 'react-bootstrap/Table';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet, Link, useNavigate } from "react-router-dom";
@@ -10,15 +11,35 @@ import axios from 'axios';
 
 function Table1({ drugsList, address, route }) {
   const [drugIds, setDrugIds] = useState([]);
-  const [selectedDrug, setSelectedDrug] = useState(null);
+  const [selectedDrug, setSelectedDrug] = useState(null); 
+  const [quantityList, setQuantityList] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
+    getQuantity();
     setSelectedDrug(null);
     setDrugIds([]);
     console.log('Selected Drug: ', selectedDrug);
   }, [drugsList]);
+  const getQuantity = async () => {
+    const promises = drugsList.map((drug) => (
+      axios.get(`http://localhost:3001/getDrugsListByName?drug_name=${drug}`)
+        .then((response) => response.data)
+        .catch((error) => {
+          if (error.response) {
+            console.log(error);
+          }
+        }
+        )));
 
+    const results = await Promise.all(promises);
+    const temp_quantityList = {};
+    results.forEach((val, index) => {
+      temp_quantityList[temp_drugs_list[index]] = val.length;
+    });
+
+    setQuantityList(temp_quantityList);
+  }
   const getDrugIds = async (name) => {
     console.log("Entered getDrugIds Function in table.jsx");
     if (address == undefined) {
@@ -35,33 +56,31 @@ function Table1({ drugsList, address, route }) {
         })
     }
     else {
-      if(route=='verifier')
-      {
+      if (route == 'verifier') {
         await axios.get(`http://localhost:3001/getVerifierDrugListByName?address=${address}&drug_name=${name}`)
-        .then((response) => response.data)
-        .then(val => {
-          // console.log("my val: ", val);
-          setDrugIds(val);
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.log(error);
-          }
-        })
+          .then((response) => response.data)
+          .then(val => {
+            // console.log("my val: ", val);
+            setDrugIds(val);
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log(error);
+            }
+          })
       }
-      else
-      {
+      else {
         await axios.get(`http://localhost:3001/getDistributerDrugListByName?address=${address}&drug_name=${name}`)
-        .then((response) => response.data)
-        .then(val => {
-          // console.log("my val: ", val);
-          setDrugIds(val);
-        })
-        .catch((error) => {
-          if (error.response) {
-            console.log(error);
-          }
-        })
+          .then((response) => response.data)
+          .then(val => {
+            // console.log("my val: ", val);
+            setDrugIds(val);
+          })
+          .catch((error) => {
+            if (error.response) {
+              console.log(error);
+            }
+          })
       }
     }
     setSelectedDrug(name);
@@ -73,10 +92,10 @@ function Table1({ drugsList, address, route }) {
   return (
     <Table striped bordered hover size="sm" className='custom-table'>
       <thead>
-        <tr>
+        <tr style={{ textAlign: "center" }}>
           <th>#</th>
           <th>Drug Name</th>
-          <th>Drug Ids</th>
+          <th style={{ width: "100px" }}>Drug Ids</th>
           <th>Quantity</th>
           {/* <th>Last Name</th>
           <th>Username</th> */}
@@ -90,19 +109,19 @@ function Table1({ drugsList, address, route }) {
               <td>{index + 1}</td>
               <td>
 
-                <button>{drug_name}</button>
+                {drug_name}
               </td>
               <td>
-                <DropdownButton className="text-right" onClick={(e) => getDrugIds(drug_name)} as={ButtonGroup} title="" id="bg-nested-dropdown">
+                <NavDropdown className="text-right" onClick={(e) => getDrugIds(drug_name)} as={ButtonGroup} title="" id="bg-nested-dropdown">
                   {/* <Dropdown.Item eventKey="1">Action</Dropdown.Item>
                         <Dropdown.Item eventKey="2">Another action</Dropdown.Item>
                         <Dropdown.Item eventKey="3">Something else</Dropdown.Item> */}
-                  {drugIds.length === 0 ? <Dropdown.Item>No Data</Dropdown.Item> : drugIds.map((drug_id, ind) => {
-                    return <Dropdown.Item eventKey={ind + 1} key={ind}><span onClick={() => handleClick(drug_id, drug_name)}>
+                  {drugIds.length === 0 ? <NavDropdown.Item>No Data</NavDropdown.Item> : drugIds.map((drug_id, ind) => {
+                    return <NavDropdown.Item eventKey={ind + 1} key={ind}><span onClick={() => handleClick(drug_id, drug_name)}>
                       {drug_id}
-                    </span></Dropdown.Item>
+                    </span></NavDropdown.Item>
                   })}
-                </DropdownButton>
+                </NavDropdown>
               </td>
               <td>
                 {drug_name == selectedDrug && drugIds.length}

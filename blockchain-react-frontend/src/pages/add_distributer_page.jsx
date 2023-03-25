@@ -82,26 +82,26 @@ export default function AddDistributerPage() {
             </Form>
             <h5>{status}</h5>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <div>
-          <h2>Distributers List</h2>
-          <table style={{ borderCollapse: "collapse", textAlign: "center" }}>
-            <thead>
-              <tr>
-                <th style={{ border: "1px solid black", padding: "10px" }}>#</th>
-                <th style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle", width: "300px" }}>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {distributerList.map((name, index) => (
-                <tr key={index}>
-                  <td style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle" }}>{index+1}</td>
-                  <td style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle", width: "300px" }}>{name[0]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                <div>
+                    <h2>Distributers List</h2>
+                    <table style={{ borderCollapse: "collapse", textAlign: "center" }}>
+                        <thead>
+                            <tr>
+                                <th style={{ border: "1px solid black", padding: "10px" }}>#</th>
+                                <th style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle", width: "300px" }}>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {distributerList.map((name, index) => (
+                                <tr key={index}>
+                                    <td style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle" }}>{index + 1}</td>
+                                    <td style={{ border: "1px solid black", padding: "10px", verticalAlign: "middle", width: "300px" }}>{name[0]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
