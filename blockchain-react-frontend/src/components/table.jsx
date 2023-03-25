@@ -11,34 +11,75 @@ import axios from 'axios';
 
 function Table1({ drugsList, address, route }) {
   const [drugIds, setDrugIds] = useState([]);
-  const [selectedDrug, setSelectedDrug] = useState(null); 
+  // const [selectedDrug, setSelectedDrug] = useState(null); 
   const [quantityList, setQuantityList] = useState({});
   const navigate = useNavigate();
-
   useEffect(() => {
     getQuantity();
-    setSelectedDrug(null);
+  }, [drugsList])
+  useEffect(() => {
+    // setSelectedDrug(null);
     setDrugIds([]);
-    console.log('Selected Drug: ', selectedDrug);
+    // console.log('Selected Drug: ', selectedDrug);
   }, [drugsList]);
+  // useEffect(() => {
+  //   console.log('quantityList: ', quantityList);
+  // }, [quantityList]);
   const getQuantity = async () => {
-    const promises = drugsList.map((drug) => (
-      axios.get(`http://localhost:3001/getDrugsListByName?drug_name=${drug}`)
-        .then((response) => response.data)
-        .catch((error) => {
-          if (error.response) {
-            console.log(error);
+    var promises;
+    if(address==undefined)
+    {
+      promises = drugsList.map((drug) => (
+        axios.get(`http://localhost:3001/getDrugsListByName?drug_name=${drug}`)
+          .then((response) => response.data)
+          .catch((error) => {
+            if (error.response) {
+              console.log(error);
+            }
           }
-        }
-        )));
-
+          )));
+    }
+    else
+    {
+      if(route=='verifier')
+      {
+        console.log('My Verifier');
+        console.log(drugsList);
+        promises = drugsList.map((drug) => (
+          axios.get(`http://localhost:3001/getVerifierDrugListByName?address=${address}&drug_name=${drug}`)
+            .then((response) => response.data)
+            .catch((error) => {
+              if (error.response) {
+                console.log(error);
+              }
+            }
+            )));
+      }
+      else
+      {
+        console.log("Hello World")
+        promises = drugsList.map((drug) => (
+          axios.get(`http://localhost:3001/getDistributerDrugListByName?address=${address}&drug_name=${drug}`)
+            .then((response) => response.data)
+            .catch((error) => {
+              if (error.response) {
+                console.log(error);
+              }
+            }
+            )));
+      }
+    }
+    console.log('promises: ', promises)
     const results = await Promise.all(promises);
+    console.log(results);
     const temp_quantityList = {};
     results.forEach((val, index) => {
-      temp_quantityList[temp_drugs_list[index]] = val.length;
+      console.log(drugsList[index]);
+      temp_quantityList[drugsList[index]] = val.length;
     });
-
+    console.log('temp_quantityList: ', temp_quantityList);
     setQuantityList(temp_quantityList);
+    console.log(quantityList);
   }
   const getDrugIds = async (name) => {
     console.log("Entered getDrugIds Function in table.jsx");
@@ -83,7 +124,7 @@ function Table1({ drugsList, address, route }) {
           })
       }
     }
-    setSelectedDrug(name);
+    // setSelectedDrug(name);
 
   }
   const handleClick = (drug_id, drug_name) => {
@@ -124,7 +165,7 @@ function Table1({ drugsList, address, route }) {
                 </NavDropdown>
               </td>
               <td>
-                {drug_name == selectedDrug && drugIds.length}
+                {quantityList[drug_name]}
               </td>
             </tr>
           );
