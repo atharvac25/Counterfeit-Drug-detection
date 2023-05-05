@@ -5,12 +5,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/logo.png"
+import App from '../App';
 
 
 
 function Navbar1() {
     return (
-        <div>
+        <div className='nvbar'>
             
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>

@@ -138,7 +138,7 @@ contract DrugVerify {
                     
                 }
                 uint k = 0;
-                for(uint j=assigned_drugs[i].quantity+1; j<drugs_by_name[assigned_drugs[i].drug_name].length; j++)
+                for(uint j=assigned_drugs[i].quantity; j<drugs_by_name[assigned_drugs[i].drug_name].length; j++)
                 {
                     drugs_by_name[assigned_drugs[i].drug_name][k] = drugs_by_name[assigned_drugs[i].drug_name][j];
                     k++;
@@ -208,7 +208,7 @@ contract DrugVerify {
                     drugs[distributer_drugs_by_name[_distributer][assigned_drugs[i].drug_name][j]].verifier = _verifier;
                 }
                 uint k = 0;
-                for(uint j=assigned_drugs[i].quantity+1; j<distributer_drugs_by_name[_distributer][assigned_drugs[i].drug_name].length; j++)
+                for(uint j=assigned_drugs[i].quantity; j<distributer_drugs_by_name[_distributer][assigned_drugs[i].drug_name].length; j++)
                 {
                     distributer_drugs_by_name[_distributer][assigned_drugs[i].drug_name][k] = distributer_drugs_by_name[_distributer][assigned_drugs[i].drug_name][j];
                     k++;

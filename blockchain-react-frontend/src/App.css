@@ -33,6 +33,10 @@
   }
 }
 
+.nvbar{
+  margin: 0px 0px;
+}
+
 .card {
   padding: 2em;
 }

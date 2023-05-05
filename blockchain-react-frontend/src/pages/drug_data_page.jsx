@@ -1,3 +1,4 @@
+import Table from 'react-bootstrap/Table';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -27,7 +28,7 @@ export default function DrugDataPage() {
         <div>
             {drugData==='...Loading' 
             ? <h5>{drugData}</h5>
-            : <table style={{ border: '1px solid black' }}>
+            : <Table striped bordered hover size="sm" className='custom-table'>
             <thead>
                 <tr>
                     {/* {Object.keys(drugData).map((key) => (
@@ -43,14 +44,18 @@ export default function DrugDataPage() {
                         <td key={key}>{drugData[key]}</td>
                     ))}
                 </tr> */}
-                {Object.keys(drugData).map((key) => (
-                    <tr key={key}>
-                        <td>{key}</td>
-                        <td>{drugData[key]}</td>
-                    </tr>
-                ))}
+                {Object.keys(drugData).map((key) => {
+                    if(!Number.isInteger(parseInt(key))) {
+                        return (
+                            <tr key={key}>
+                                <td>{key}</td>
+                                <td>{drugData[key]}</td>
+                            </tr>
+                        );
+                    }
+                })}
             </tbody>
-        </table>}
+        </Table>}
         </div>
     )
 }

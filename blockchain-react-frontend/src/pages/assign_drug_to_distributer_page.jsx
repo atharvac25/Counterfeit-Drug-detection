@@ -139,7 +139,6 @@ export default function AssignDrugToDistributerPage() {
     }
 
     const handleOptionSelect = (name) => {
-        console.log()
         setSelectedOption(name);
         setAddress(distributorAddress[name]);
         console.log(address);
@@ -156,6 +155,13 @@ export default function AssignDrugToDistributerPage() {
                     console.log(error);
                 }
             });
+        
+        // setIsChecked({});
+        // setAssignedDrugs({});
+        // setAssignedDrugsDict({});
+        // setAddress('');
+        // setSelectedOption(null);
+        // getDrugsList();
         window.location.reload(true);
     }
     return (
@@ -181,7 +187,7 @@ export default function AssignDrugToDistributerPage() {
             <Table striped bordered hover size="sm" className='custom-table'>
                 <thead>
                     <tr>
-                        <th>select</th>
+                        <th>Select</th>
                         <th>Drug Name</th>
                         <th>Quantity</th>
                         <th>Input Quantity</th>

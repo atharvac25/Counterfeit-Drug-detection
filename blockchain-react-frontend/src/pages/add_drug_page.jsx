@@ -64,16 +64,20 @@ export default function AddDrugPage() {
                         console.log(error);
                     }
                 })
+            getDrugNames();
             console.log('My Value: ', myVal);
             return myVal;
         }
+        getDrugNames();
         return 'Issue with Drug Name';
     }
     return (
         <div ref={drugPageRef} id='id-drug-page'>
             <Navbar1 />
             <Form1 addDrug={addDrug} drugName={drugName} description={description} setDrugName={setDrugName} setDescription={setDescription} />
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+            <br></br>
+            <br></br>
+            <div style={{ display: "flex", justifyContent: "center", height: "100vh" }}>
                 <div>
                     <h2>Drug List</h2>
                     <table style={{ borderCollapse: "collapse", textAlign: "center" }}>
